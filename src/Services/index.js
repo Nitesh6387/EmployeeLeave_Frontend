@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = 'https://employeeleave-backend.onrender.com'
 export const EmpLogin = async (payload) => {
    const response = await axios.post(`${BASE_URL}/emp-login`, payload)
    return response?.data
