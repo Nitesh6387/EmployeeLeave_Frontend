@@ -27,55 +27,59 @@ export default function AllLeaveRequests() {
 
     return (
         <AdminDashboard>
-            <div className="p-6">
-                <h2 className="text-2xl font-bold mb-6 text-gray-800">All Leave Requests</h2>
-                <div className="space-y-4">
-                    {leaves.map((leave) => (
-                        <div
-                            key={leave._id}
-                            className="bg-gray-100 p-4 rounded-xl shadow-sm border flex flex-col gap-2"
-                        >
-                            <div>
-                                <p className="font-semibold">{leave.employeeId.name}</p>
-                                <p className="text-sm text-gray-500">{leave.employeeId.email}</p>
-                            </div>
-
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm mt-2">
-                                <p>
-                                    <span className="font-medium">Type:</span> {leave.type}
-                                </p>
-                                <p>
-                                    <span className="font-medium">From:</span> {leave.from}
-                                </p>
-                                <p>
-                                    <span className="font-medium">To:</span> {leave.to}
-                                </p>
-                                <p>
-                                    <span className="font-medium">Reason:</span> {leave.reason}
-                                </p>
-                                <p>
-                                    <span className="font-medium">Status:</span> {leave.status}
-                                </p>
-                            </div>
-
-                            <div className="flex gap-3 mt-2">
-                                <button
-                                    onClick={() => handleStatusUpdate(leave._id, "Approved")}
-                                    className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
-                                >
-                                    Approve
-                                </button>
-                                <button
-                                    onClick={() => handleStatusUpdate(leave._id, "Rejected")}
-                                    className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
-                                >
-                                    Reject
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-white rounded-xl shadow-md overflow-hidden">
+                    <thead className="bg-blue-100 text-blue-900">
+                        <tr>
+                            <th className="px-6 py-4 text-sm border-b border-blue-200">Employee Name</th>
+                            <th className="px-6 py-4 text-sm border-b border-blue-200">Email</th>
+                            <th className="px-6 py-4 text-sm border-b border-blue-200">Type</th>
+                            <th className="px-6 py-4 text-sm border-b border-blue-200">From</th>
+                            <th className="px-6 py-4 text-sm border-b border-blue-200">To</th>
+                            <th className="px-6 py-4 text-sm border-b border-blue-200">Reason</th>
+                            <th className="px-6 py-4 text-sm border-b border-blue-200">Status</th>
+                            <th className="px-6 py-4 text-sm border-b border-blue-200 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {leaves.map((leave, index) => (
+                            <tr
+                                key={leave._id}
+                                className={`hover:bg-blue-50 ${index % 2 === 1 ? "bg-blue-50/30" : "bg-white"
+                                    }`}
+                            >
+                                <td className="px-6 py-4 border-b border-blue-100">{leave.employeeId.name}</td>
+                                <td className="px-6 py-4 border-b border-blue-100">{leave.employeeId.email}</td>
+                                <td className="px-6 py-4 border-b border-blue-100">{leave.type}</td>
+                                <td className="px-6 py-4 border-b border-blue-100">{leave.from}</td>
+                                <td className="px-6 py-4 border-b border-blue-100">{leave.to}</td>
+                                <td className="px-6 py-4 border-b border-blue-100">{leave.reason}</td>
+                                <td className="px-6 py-4 border-b border-blue-100 font-medium text-gray-700">
+                                    {leave.status}
+                                </td>
+                                <td className="px-6 py-4 border-b border-blue-100 text-center">
+                                    <div className="flex gap-2 justify-center">
+                                        <button
+                                            onClick={() => handleStatusUpdate(leave._id, "Approved")}
+                                            className="bg-green-500 text-white px-3 py-1.5 rounded-md hover:bg-green-600 transition"
+                                        >
+                                            Approve
+                                        </button>
+                                        <button
+                                            onClick={() => handleStatusUpdate(leave._id, "Rejected")}
+                                            className="bg-red-500 text-white px-3 py-1.5 rounded-md hover:bg-red-600 transition"
+                                        >
+                                            Reject
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
+
         </AdminDashboard>
     );
+
 }
